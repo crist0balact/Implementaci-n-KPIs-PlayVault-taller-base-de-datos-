@@ -151,7 +151,6 @@ END KPI_ANALISIS;
 --------------------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER trg_kpi_clientes_top
 AFTER INSERT OR DELETE OR UPDATE ON VENTA
-FOR EACH ROW
 BEGIN
   KPI_ANALISIS.Calcular_KPI_Clientes_Top;
 END;
@@ -163,7 +162,6 @@ END;
 --------------------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER trg_kpi_ingresos_sucursal_venta
 AFTER INSERT OR DELETE OR UPDATE ON VENTA
-FOR EACH ROW
 BEGIN
   KPI_ANALISIS.Calcular_KPI_Ingresos_Sucursal;
 END;
@@ -171,7 +169,6 @@ END;
 
 CREATE OR REPLACE TRIGGER trg_kpi_ingresos_sucursal_renta
 AFTER INSERT OR DELETE OR UPDATE ON RENTA
-FOR EACH ROW
 BEGIN
   KPI_ANALISIS.Calcular_KPI_Ingresos_Sucursal;
 END;
@@ -183,7 +180,6 @@ END;
 --------------------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER trg_kpi_productos_sin_reseña
 AFTER INSERT OR DELETE OR UPDATE ON RESEÑA
-FOR EACH ROW
 BEGIN
   KPI_ANALISIS.Calcular_KPI_Productos_Sin_Reseña;
 END;
@@ -195,7 +191,6 @@ END;
 --------------------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER trg_kpi_producto_top
 AFTER INSERT OR DELETE OR UPDATE ON DETALLE_VENTA
-FOR EACH ROW
 BEGIN
   KPI_ANALISIS.Calcular_KPI_Producto_Top;
 END;
@@ -207,7 +202,6 @@ END;
 --------------------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER trg_kpi_rentas_retraso
 AFTER INSERT OR DELETE OR UPDATE ON RENTA
-FOR EACH ROW
 BEGIN
   KPI_ANALISIS.Calcular_KPI_Rentas_Retraso;
 END;
@@ -219,7 +213,6 @@ END;
 --------------------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER trg_kpi_reseñas_promedio
 AFTER INSERT OR DELETE OR UPDATE ON RESEÑA
-FOR EACH ROW
 BEGIN
   KPI_ANALISIS.Calcular_KPI_Reseñas_Promedio;
 END;
@@ -231,7 +224,6 @@ END;
 --------------------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER trg_kpi_ventas_mes
 AFTER INSERT OR DELETE OR UPDATE ON VENTA
-FOR EACH ROW
 BEGIN
   KPI_ANALISIS.Calcular_KPI_Ventas_Mes;
 END;
@@ -325,3 +317,17 @@ SELECT * FROM KPI_PRODUCTO_TOP;
 SELECT * FROM KPI_RENTAS_RETRASO;
 SELECT * FROM KPI_RESEÑAS_PROMEDIO;
 SELECT * FROM KPI_VENTAS_MES;
+
+
+--PRUEBA TEMPORAL DE KPI PROMEDIO RESEÑAS
+SELECT * FROM RESEÑA;
+INSERT INTO RESEÑA VALUES (21, '1', 'Nada que ver con el 1.', TO_DATE('2025-11-9','YYYY-MM-DD'), 10, 4);
+
+--PRUEBA TEMPORAL DE KPI PRODUCTOS SIN RESEÑAS
+INSERT INTO RESEÑA VALUES (22, '1', 'xd.', TO_DATE('2025-11-9','YYYY-MM-DD'), 17, 4);
+
+--PRUEBA TEMPORAL DE KPI VENTA POR CLIENTE
+SELECT * FROM VENTA;
+SELECT * FROM DETALLE_VENTA;
+INSERT INTO VENTA VALUES (21, TO_DATE('2024-03-15','YYYY-MM-DD'), 59990, 'Tarjeta', 'Domicilio', 'Av. Pajaritos 123', 2, 1, 1);
+INSERT INTO DETALLE_VENTA VALUES (21, 1, 59990, 1, 1);
